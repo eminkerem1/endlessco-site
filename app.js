@@ -114,6 +114,7 @@ if (form) {
   const status = document.getElementById('form-status');
   const submitButton = document.getElementById('brief-submit');
   const defaultMessagePlaceholder = messageField.getAttribute('placeholder');
+  const firstStepNote = document.getElementById('first-step-note');
   const packageArea = {'01': 'proje', '02': 'proje', '03': 'proje', '04': 'egitim', '05': 'deneyimsel', '06': 'kurumsal', '07': 'kurumsal', '08': 'akademik', '09': 'akademik'};
   const params = new URLSearchParams(window.location.search);
   function selectKnownOption(element, value) {
@@ -126,15 +127,19 @@ if (form) {
   function updateRequestFields() {
     programField.hidden = selector.value !== 'proje';
     const partnership = selector.value === 'uzman-isbirligi';
-    briefTitle.textContent = partnership ? 'İş birliği talebinizi gönderin' : 'Talebinizi gönderin';
-    messageLabel.textContent = partnership ? 'İş birliği yapmak istediğiniz çalışmayı anlatın' : 'İhtiyacınızı kısaca anlatın';
+    const firstStep = !partnership && pkg && pkg.value === '01';
+    briefTitle.textContent = partnership ? 'İş birliği talebinizi gönderin' : firstStep ? 'İlk Adım başvurusu' : 'Talebinizi gönderin';
+    messageLabel.textContent = partnership ? 'İş birliği yapmak istediğiniz çalışmayı anlatın' : firstStep ? 'Kurumunuzu ve proje fikrinizi kısaca anlatın' : 'İhtiyacınızı kısaca anlatın';
     messageField.setAttribute('placeholder', partnership
       ? 'Uzmanlık alanınız, deneyiminiz ve varsa kendi müşteriniz için planladığınız hizmetin kapsamı ve takvimi…'
+      : firstStep ? 'Kurumunuzun türü ve faaliyetleri, proje fikriniz, ulaşmak istediğiniz hedef grup ve varsa aklınızdaki destek programı…'
       : defaultMessagePlaceholder);
+    if (firstStepNote) firstStepNote.hidden = !firstStep;
+    if (submitButton) submitButton.firstChild.textContent = firstStep ? 'Başvurumu gönder ' : 'Talebimi gönder ';
   }
   updateRequestFields();
   selector.addEventListener('change', updateRequestFields);
-  if (pkg) pkg.addEventListener('change', () => { if (packageArea[pkg.value]) { selector.value = packageArea[pkg.value]; updateRequestFields(); } });
+  if (pkg) pkg.addEventListener('change', () => { if (packageArea[pkg.value]) selector.value = packageArea[pkg.value]; updateRequestFields(); });
   const optionText = el => (el && el.value ? el.options[el.selectedIndex].text : '');
   form.addEventListener('submit', async event => {
     event.preventDefault();
