@@ -1028,3 +1028,4 @@ nav.is-open{display:flex}nav>a{padding:13px 0}nav .nav-cta{padding:13px 15px;mar
 .mv-approach{margin-top:26px;font-size:14px;color:var(--muted);line-height:1.8}
 .mv-approach strong{color:var(--ink)}
 @media(max-width:800px){.mv-grid{grid-template-columns:1fr}.mv-card{padding:26px}.mv-card p{font-size:16px}}
+.pkg-pager{position:static!important}
