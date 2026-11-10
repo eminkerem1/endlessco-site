@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://endlessco.tr/sitemap.xml
+Disallow: /
