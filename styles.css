@@ -910,3 +910,8 @@ nav.is-open{display:flex}nav>a{padding:13px 0}nav .nav-cta{padding:13px 15px;mar
 .draft-copy-panel label{margin-bottom:8px}
 .brief-form .draft-copy-panel textarea{min-height:220px;margin-bottom:10px;font-size:14px;line-height:1.65;overflow-wrap:anywhere}
 .draft-copy-panel p{font-size:12px;line-height:1.65;color:#52647e;margin:0}
+
+/* İlk Adım bandı (ana sayfa) */
+.first-step{padding-bottom:0}
+.first-step .section-heading-row{border:1px solid rgba(22,88,197,.22);border-radius:20px;padding:36px 40px;background:#f4f8ff;margin-bottom:0}
+@media(max-width:560px){.first-step .section-heading-row{padding:26px 22px}}
