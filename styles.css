@@ -1018,3 +1018,13 @@ nav.is-open{display:flex}nav>a{padding:13px 0}nav .nav-cta{padding:13px 15px;mar
 .brief-form.is-sent p{font-size:14px;line-height:1.8;color:var(--muted)}
 .brief-form.is-sent .button{margin-top:18px;width:auto}
 #form-status a{color:var(--blue);text-decoration:underline}
+/* misyon & vizyon */
+.mv-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.mv-card{border:1px solid var(--line);border-radius:18px;padding:34px 36px;background:#fff}
+.mv-card p{font-size:18px;line-height:1.7;color:var(--ink);margin:0}
+.mv-label{display:block;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.mv-card-dark{background:var(--navy);border-color:var(--navy)}
+.mv-card-dark p{color:#fff}.mv-card-dark .mv-label{color:#8fb4ff}
+.mv-approach{margin-top:26px;font-size:14px;color:var(--muted);line-height:1.8}
+.mv-approach strong{color:var(--ink)}
+@media(max-width:800px){.mv-grid{grid-template-columns:1fr}.mv-card{padding:26px}.mv-card p{font-size:16px}}
