@@ -1,7 +1,9 @@
 'use strict';
 
 // Keep bookmarked paths and campaign parameters when visitors use a second domain.
-const aliasHosts = ['www.endlessco.tr', 'endlessco.com.tr', 'www.endlessco.com.tr'];
+// TEST ORTAMI: endlessco.com.tr bu kopyanın test adresi olduğu için yönlendirmeden çıkarıldı.
+// Canlıya alınırken listeye geri eklenebilir: 'endlessco.com.tr', 'www.endlessco.com.tr'
+const aliasHosts = ['www.endlessco.tr'];
 if (aliasHosts.includes(window.location.hostname)) {
   const destination = new URL(window.location.href);
   destination.protocol = 'https:';
@@ -102,31 +104,29 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 const form = document.getElementById('brief-form');
 if (form) {
   const selector = document.getElementById('contact-service');
+  const pkg = document.getElementById('contact-package');
   const area = document.getElementById('contact-area');
   const program = document.getElementById('contact-program');
   const programField = document.getElementById('contact-program-field');
-  const source = document.getElementById('contact-source');
   const briefTitle = document.getElementById('brief-title');
   const messageLabel = document.getElementById('contact-message-label');
   const messageField = document.getElementById('contact-message');
+  const status = document.getElementById('form-status');
+  const submitButton = document.getElementById('brief-submit');
   const defaultMessagePlaceholder = messageField.getAttribute('placeholder');
-  const gmailButton = document.getElementById('gmail-draft');
-  if (gmailButton) gmailButton.hidden = false;
-  const copyButton = document.getElementById('copy-draft');
-  const copyPanel = document.getElementById('draft-copy-panel');
-  const copyText = document.getElementById('draft-copy-text');
-  if (copyButton) copyButton.hidden = false;
+  const packageArea = {'01': 'proje', '02': 'proje', '03': 'proje', '04': 'egitim', '05': 'deneyimsel', '06': 'kurumsal', '07': 'kurumsal', '08': 'akademik', '09': 'akademik'};
   const params = new URLSearchParams(window.location.search);
   function selectKnownOption(element, value) {
-    if (value && Array.from(element.options).some(option => option.value === value)) element.value = value;
+    if (element && value && Array.from(element.options).some(option => option.value === value)) element.value = value;
   }
-  selectKnownOption(selector, params.get('hizmet'));
+  selectKnownOption(pkg, params.get('paket'));
+  selectKnownOption(selector, params.get('hizmet') || packageArea[params.get('paket')]);
   selectKnownOption(area, params.get('alan'));
   selectKnownOption(program, params.get('program'));
   function updateRequestFields() {
     programField.hidden = selector.value !== 'proje';
     const partnership = selector.value === 'uzman-isbirligi';
-    briefTitle.textContent = partnership ? 'İş birliği talebinizi hazırlayın' : 'Talebinizi hazırlayın';
+    briefTitle.textContent = partnership ? 'İş birliği talebinizi gönderin' : 'Talebinizi gönderin';
     messageLabel.textContent = partnership ? 'İş birliği yapmak istediğiniz çalışmayı anlatın' : 'İhtiyacınızı kısaca anlatın';
     messageField.setAttribute('placeholder', partnership
       ? 'Uzmanlık alanınız, deneyiminiz ve varsa kendi müşteriniz için planladığınız hizmetin kapsamı ve takvimi…'
@@ -134,70 +134,62 @@ if (form) {
   }
   updateRequestFields();
   selector.addEventListener('change', updateRequestFields);
-  function prepareDraft() {
-    if (!form.reportValidity()) return null;
-    const name = document.getElementById('contact-name').value.trim();
-    const organization = document.getElementById('contact-org').value.trim();
-    const email = document.getElementById('contact-email').value.trim();
-    const service = selector.value ? selector.options[selector.selectedIndex].text : 'Genel görüşme';
-    const areaText = area.value ? area.options[area.selectedIndex].text : 'Belirtilmedi';
-    const programText = selector.value === 'proje' && program.value ? program.options[program.selectedIndex].text : '';
-    const message = document.getElementById('contact-message').value.trim();
-    if (!name || !message) {
-      document.getElementById('form-status').textContent = 'Adınızı ve talebinizi yazın. Yalnızca boşluk içeren alanlarla taslak hazırlanamıyor.';
-      document.getElementById(!name ? 'contact-name' : 'contact-message').focus();
-      return null;
-    }
-    const subject = selector.value === 'uzman-isbirligi'
-      ? 'ENDLESS.CO eğitmen ve uzman iş ortaklığı talebi'
-      : 'ENDLESS.CO görüşme talebi — ' + service;
-    const sourceText = source && source.value ? source.options[source.selectedIndex].text : '';
-    const body = 'Merhabalar,\n\n' + message + '\n\nAd Soyad: ' + name + '\nŞirket / Kurum / Üniversite: ' + (organization || 'Belirtilmedi') + '\nE-posta: ' + email + '\nGörüşme konusu: ' + service + (programText ? '\nProje programı: ' + programText : '') + '\nÇalışma alanı: ' + areaText + (sourceText ? '\nBize ulaşma kaynağı: ' + sourceText : '');
-    return { subject, body };
-  }
-  form.addEventListener('submit', event => {
+  if (pkg) pkg.addEventListener('change', () => { if (packageArea[pkg.value]) { selector.value = packageArea[pkg.value]; updateRequestFields(); } });
+  const optionText = el => (el && el.value ? el.options[el.selectedIndex].text : '');
+  form.addEventListener('submit', async event => {
     event.preventDefault();
-    const draft = prepareDraft();
-    if (!draft) return;
-    const { subject, body } = draft;
-    if (event.submitter && event.submitter.value === 'gmail') {
-      const params = new URLSearchParams({view: 'cm', fs: '1', to: 'endlesscotr@gmail.com', su: subject, body});
-      window.open('https://mail.google.com/mail/?' + params.toString(), '_blank', 'noopener,noreferrer');
-      document.getElementById('form-status').textContent = 'Gmail’de açılan taslağı kontrol edip gönderebilirsiniz. Yeni pencere açılmadıysa tarayıcınızın pencere ayarlarını kontrol edin.';
-    } else {
-      window.location.href = 'mailto:endlesscotr@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-      document.getElementById('form-status').textContent = 'Taslağı e-posta uygulamanızdan gönderebilirsiniz. Uygulama açılmadıysa Gmail seçeneğini kullanabilir veya endlesscotr@gmail.com adresine doğrudan yazabilirsiniz.';
+    if (!form.reportValidity()) return;
+    const name = document.getElementById('contact-name').value.trim();
+    const message = messageField.value.trim();
+    if (!name || !message) {
+      status.textContent = 'Adınızı ve talebinizi yazın.';
+      document.getElementById(!name ? 'contact-name' : 'contact-message').focus();
+      return;
+    }
+    if (form.querySelector('[name="_honey"]').value) return;
+    const packageText = optionText(pkg);
+    const subject = selector.value === 'uzman-isbirligi'
+      ? 'ENDLESS.CO uzman iş ortaklığı talebi'
+      : 'ENDLESS.CO talebi — ' + (packageText || optionText(selector) || 'Genel görüşme');
+    const payload = {
+      'Ad Soyad': name,
+      'Kurum': document.getElementById('contact-org').value.trim() || 'Belirtilmedi',
+      'E-posta': document.getElementById('contact-email').value.trim(),
+      'Paket': packageText || 'Belirtilmedi',
+      'Hizmet alanı': optionText(selector) || 'Belirtilmedi',
+      'Proje programı': selector.value === 'proje' ? (optionText(program) || 'Belirtilmedi') : '-',
+      'Çalışma alanı': optionText(area) || 'Belirtilmedi',
+      'Bizi nereden duydu': optionText(document.getElementById('contact-source')) || 'Belirtilmedi',
+      'Mesaj': message,
+      'KVKK': 'Aydınlatma metni okundu',
+      'Sayfa': window.location.href,
+      _subject: subject,
+      _replyto: document.getElementById('contact-email').value.trim(),
+      _template: 'table',
+      _captcha: 'false'
+    };
+    submitButton.disabled = true;
+    status.textContent = 'Talebiniz gönderiliyor…';
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/endlesscotr@gmail.com', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || String(result.success) === 'false') throw new Error(result.message || 'send-failed');
+      form.reset();
+      form.classList.add('is-sent');
+      form.innerHTML = '<h2>Talebiniz bize ulaştı.</h2><p>Teşekkür ederiz, ' + name.replace(/[<>&"]/g, '') + '. Talebinizi değerlendirip yazdığınız e-posta adresine dönüş yapacağız.</p><p class="form-note">Acil bir konu için <a href="mailto:endlesscotr@gmail.com">endlesscotr@gmail.com</a> adresine de yazabilirsiniz.</p><a class="button button-dark" href="/paketler/">Hizmet paketlerini inceleyin <span aria-hidden="true">↗</span></a>';
+      form.setAttribute('tabindex', '-1');
+      form.focus();
+    } catch (error) {
+      submitButton.disabled = false;
+      const body = 'Merhabalar,\n\n' + message + '\n\n' + Object.entries(payload).filter(([k]) => !k.startsWith('_') && k !== 'Mesaj').map(([k, v]) => k + ': ' + v).join('\n');
+      const mailto = 'mailto:endlesscotr@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      status.innerHTML = 'Talebiniz şu an iletilemedi. Lütfen birkaç dakika sonra yeniden deneyin ya da <a href="' + mailto + '">e-posta ile gönderin</a>.';
     }
   });
-  if (copyButton) {
-    copyButton.addEventListener('click', async () => {
-      const draft = prepareDraft();
-      if (!draft) return;
-      const text = 'Alıcı: endlesscotr@gmail.com\nKonu: ' + draft.subject + '\n\n' + draft.body;
-      copyText.value = text;
-      copyPanel.hidden = false;
-      copyText.focus();
-      copyText.select();
-      const status = document.getElementById('form-status');
-      status.textContent = 'Taslağınız aşağıda seçili. Metni kopyalayıp e-postanıza yapıştırabilirsiniz; mesaj henüz gönderilmedi.';
-      try {
-        const clipboard = window.navigator && window.navigator.clipboard;
-        if (clipboard && clipboard.writeText) {
-          await clipboard.writeText(text);
-          if (copyText.value === text) status.textContent = 'Taslak kopyalandı. E-postanıza yapıştırıp alıcı ve konu alanlarını kontrol ederek gönderebilirsiniz. Mesaj henüz gönderilmedi.';
-        }
-      } catch {
-        // Keep the selected, read-only text available when clipboard access is denied.
-      }
-    });
-    function clearCopyPreview() {
-      copyPanel.hidden = true;
-      copyText.value = '';
-      document.getElementById('form-status').textContent = '';
-    }
-    form.addEventListener('input', clearCopyPreview);
-    form.addEventListener('change', clearCopyPreview);
-  }
 }
 const year = document.getElementById('year');
 if (year) year.textContent = String(new Date().getFullYear());
