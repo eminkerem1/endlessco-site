@@ -14,3 +14,7 @@ endlessco.tr sitesinin 11 Kasım 2026 tarihli birebir kopyası. Bu depo **endles
 Form, FormSubmit (formsubmit.co) AJAX uç noktası üzerinden endlesscotr@gmail.com adresine gönderir. İlk gönderimde FormSubmit bu adrese bir **etkinleştirme e-postası** yollar; e-postadaki bağlantıya tıklanana kadar form gönderimleri teslim edilmez.
 
 Canlıya geçişte bu değişiklikler geri alınır; ilk commit (`ca336b2`) sitenin orijinal hâlidir.
+
+## Paket sayfaları
+
+`/paketler/` ve dokuz paket sayfası `tools/build_paketler.py` ile üretilir. Paket metinleri `tools/paketler_data.py` dosyasındadır; metni orada değiştirip `python3 tools/build_paketler.py` çalıştırmak yeterlidir. Menü ve alt bilgi `kurumsal/index.html` sayfasından kopyalanır.
