@@ -70,7 +70,7 @@ def shell(path, title, desc, main):
             f'<title>{e(title)}</title><meta name="description" content="{e(desc)}"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#0b1b32">'
             f'<link rel="canonical" href="{url}"><link rel="alternate" hreflang="en" href="{url}"><link rel="alternate" hreflang="tr" href="{BASE}{TR_OF[path]}">'
             f'<meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:locale" content="en_GB">'
-            f'<meta property="og:image" content="{BASE}/assets/endless-logo-v2.png"><meta property="og:url" content="{url}">'
+            f'<meta property="og:image" content="{BASE}/assets/og-endlessco.png"><meta property="og:url" content="{url}">'
             '<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>'
             f'<script type="application/ld+json">{ld}</script></head>'
             f'<body class="site-multipage"><a class="skip-link" href="#main">Skip to content</a>{header}{main}{footer}</body></html>')

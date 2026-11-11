@@ -18,7 +18,7 @@ def _shell():
     body_start = body_start.replace(' aria-current="page"', '')
     return head_start, body_start, tail
 
-def build(path, title, desc, crumbs, main_html, extra_ld=None, og_image=f'{BASE}/assets/endless-logo-v2.png'):
+def build(path, title, desc, crumbs, main_html, extra_ld=None, og_image=f'{BASE}/assets/og-endlessco.png'):
     """path like '/paketler/ilk-adim/'; crumbs list of (name, path)."""
     head_start, body_start, tail = _shell()
     url = BASE + path
@@ -42,7 +42,7 @@ def build(path, title, desc, crumbs, main_html, extra_ld=None, og_image=f'{BASE}
             f'<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#0b1b32">\n'
             f'<meta property="og:title" content="{t}"><meta property="og:description" content="{d}">\n'
             f'<meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:site_name" content="ENDLESS.CO">\n'
-            f'<meta property="og:image" content="{og_image}"><meta property="og:image:width" content="1942"><meta property="og:image:height" content="809"><meta property="og:image:alt" content="ENDLESS.CO — Proje, Eğitim, Danışmanlık"><meta property="og:url" content="{url}">\n'
+            f'<meta property="og:image" content="{og_image}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="ENDLESS.CO — Proje, Eğitim, Danışmanlık"><meta property="og:url" content="{url}">\n'
             f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{t}"><meta name="twitter:description" content="{d}"><meta name="twitter:image" content="{og_image}"><meta name="twitter:image:alt" content="ENDLESS.CO — Proje, Eğitim, Danışmanlık">\n'
             f'<link rel="canonical" href="{url}"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>'
             f'<script type="application/ld+json">{ld}</script>')
