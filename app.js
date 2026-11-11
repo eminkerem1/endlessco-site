@@ -12,6 +12,7 @@ if (aliasHosts.includes(window.location.hostname)) {
   window.location.replace(destination.href);
 }
 
+const EN_UI = document.documentElement.lang === 'en';
 const menuToggle = document.querySelector('.menu-toggle');
 const navigation = document.getElementById('main-nav');
 const navGroups = Array.from(document.querySelectorAll('[data-nav-group]'));
@@ -21,14 +22,14 @@ function closeGroups(except = null) {
 function closeMenu() {
   navigation.classList.remove('is-open');
   menuToggle.setAttribute('aria-expanded', 'false');
-  menuToggle.setAttribute('aria-label', 'Gezinme menüsünü aç');
+  menuToggle.setAttribute('aria-label', EN_UI ? 'Open navigation' : 'Gezinme menüsünü aç');
   closeGroups();
 }
 menuToggle.addEventListener('click', () => {
   const open = menuToggle.getAttribute('aria-expanded') !== 'true';
   if (!open) { closeMenu(); return; }
   menuToggle.setAttribute('aria-expanded', 'true');
-  menuToggle.setAttribute('aria-label', 'Gezinme menüsünü kapat');
+  menuToggle.setAttribute('aria-label', EN_UI ? 'Close navigation' : 'Gezinme menüsünü kapat');
   navigation.classList.add('is-open');
 });
 navGroups.forEach(group => {
@@ -166,7 +167,7 @@ if (form) {
       'Çalışma alanı': optionText(area) || 'Belirtilmedi',
       'Bizi nereden duydu': optionText(document.getElementById('contact-source')) || 'Belirtilmedi',
       'Mesaj': message,
-      'KVKK': 'Aydınlatma metni okundu',
+      'KVKK': 'Aydınlatma metni okundu ve anlaşıldı',
       'Sayfa': window.location.href,
       _subject: subject,
       _replyto: document.getElementById('contact-email').value.trim(),
@@ -200,14 +201,3 @@ const year = document.getElementById('year');
 if (year) year.textContent = String(new Date().getFullYear());
 
 // This is an information notice, not consent for advertising or analytics.
-const cookieNotice = document.getElementById('cookie-notice');
-if (cookieNotice) {
-  const noticeKey = 'endless.cookie-notice.v1';
-  let dismissed = false;
-  try { dismissed = window.sessionStorage.getItem(noticeKey) === '1'; } catch {}
-  cookieNotice.hidden = dismissed;
-  document.getElementById('cookie-notice-dismiss').addEventListener('click', () => {
-    cookieNotice.hidden = true;
-    try { window.sessionStorage.setItem(noticeKey, '1'); } catch {}
-  });
-}
