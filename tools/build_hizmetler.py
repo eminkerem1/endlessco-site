@@ -98,8 +98,8 @@ def build_index():
                      f'<p class="svc-card-tag">{esc(a["tagline"])}</p><p>{esc(a["lead"].split(". ")[0].rstrip("."))}.</p><ul>{tags}</ul>'
                      f'<div class="svc-card-foot"><a class="text-link" href="{url}">Alanı inceleyin {ARROW}</a><span>{npk} paket</span></div></article>')
     band = ('<section class="container pkg-band"><div><p class="eyebrow">HAZIR PAKETLER</p><h2>Kapsamı, süresi ve teslimi belli<br>bir başlangıç mı arıyorsunuz?</h2>'
-            '<p>Hizmet alanlarımızdaki sık talep edilen işleri dokuz pakete dönüştürdük. İlk Adım 1.900 TL sabit ücretlidir (KDV dahil); diğer paketler için yazılı teklif hazırlıyoruz.</p></div>'
-            f'<div class="pkg-band-actions"><a class="button button-light" href="/paketler/">Paketleri inceleyin {ARROW}</a><a class="text-link" href="/paketler/ilk-adim/">İlk Adım · 1.900 TL {ARROW}</a></div></section>')
+            '<p>Hizmet alanlarımızdaki sık talep edilen işleri dokuz pakete dönüştürdük. İlk Adım 1.500 TL sabit ücretlidir (KDV dahil); diğer paketler için yazılı teklif hazırlıyoruz.</p></div>'
+            f'<div class="pkg-band-actions"><a class="button button-light" href="/paketler/">Paketleri inceleyin {ARROW}</a><a class="text-link" href="/paketler/ilk-adim/">İlk Adım · 1.500 TL {ARROW}</a></div></section>')
     block = START + f'<section class="section container"><div class="svc-grid">{"".join(cards)}</div></section>' + band + END
     h = h[:r0] + block + h[r1:]
     h = re.sub(r'(<section class="page-heading container">.*?<p class="page-lead">).*?(</p>)',

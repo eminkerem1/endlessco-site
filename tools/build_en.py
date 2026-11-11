@@ -36,7 +36,7 @@ AREAS = [
       'Quantitative and qualitative data analysis', 'Methodological feedback on theses, papers and conference submissions']),
 ]
 PACKAGES = [
-    ('01', 'projects', 'First Step', 'Two online meetings, a review of up to three funding opportunities and a written 2–3 page project roadmap.', 'Fixed fee: TRY 1,900 (VAT included)'),
+    ('01', 'projects', 'First Step', 'One 60-minute online meeting, a review of up to three funding opportunities, a written 2–3 page project roadmap and a round of follow-up questions by email.', 'Fixed fee: TRY 1,500 (VAT included)'),
     ('02', 'projects', 'Project Design Workshop', 'A hands-on workshop in which your team turns its own idea into a structured project design.', None),
     ('03', 'projects', 'Project Implementation and Training', 'Training, workshops, expert coordination and evaluation for funded projects.', None),
     ('04', 'training', 'Applied Competence Programmes', 'Tailored training on AI and digital productivity, office tools, PCM, communication and entrepreneurship.', None),
@@ -176,7 +176,7 @@ def page_privacy():
     S = lambda t, b: f'<section><h2>{t}</h2>{b}</section>'
     body = ''.join([
         S('About this notice', '<p>This is an English summary of our Turkish privacy notice (KVKK Aydınlatma Metni), prepared under Article 10 of the Turkish Personal Data Protection Law No. 6698 (KVKK). If the two versions differ, the <a href="/kvkk-aydinlatma-metni/" hreflang="tr" lang="tr">Turkish version</a> prevails.</p>'),
-        S('Data controller', '<p>Aleyna ERKADAM, owner of the sole proprietorship operating under the ENDLESS.CO brand. Contact: <a href="mailto:endlesscotr@gmail.com">endlesscotr@gmail.com</a> · Çankaya, Ankara, Türkiye.</p>'),
+        S('Data controller', '<p>Aleyna ERKADAM, owner of the sole proprietorship operating under the ENDLESS.CO brand. Address: Kızılırmak Mahallesi, 1450. Sokak No: 16, Çankaya/Ankara, Türkiye · Email: <a href="mailto:endlesscotr@gmail.com">endlesscotr@gmail.com</a>.</p>'),
         S('What we process and how', '<p>Name, email address, organisation, the package or service you are interested in and the content of your message, collected directly from you through the contact form or by email; and technical records such as IP address and time of request, created automatically by our hosting and form service providers.</p>'),
         S('Purposes and legal bases', '<ul><li>Responding to your enquiry and preparing proposals (KVKK Art. 5(2)(c)).</li><li>Answering general questions and keeping our services secure (KVKK Art. 5(2)(f), legitimate interest).</li><li>Meeting legal obligations and protecting our rights (KVKK Art. 5(2)(ç) and (e)).</li></ul><p>We do not use your data for marketing.</p>'),
         S('Recipients and transfers abroad', '<p>We share only what is necessary with the experts working on your request, and use FormSubmit (form delivery), Google (email) and GitHub (website hosting) as service providers. Their servers are located outside Türkiye, so your data is transferred abroad solely to provide these services, subject to Article 9 of the KVKK.</p>'),

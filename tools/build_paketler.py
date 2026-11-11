@@ -90,7 +90,7 @@ def package_page(p, prev_p, next_p):
     service_ld = {"@type": "Service", "@id": f"{BASE}{pkg_url(p)}#service", "name": p['name'], "description": p['lead'],
                   "provider": {"@id": f"{BASE}/#organization"}, "areaServed": "TR", "serviceType": AREAS[p['area']]['name']}
     if p.get('price'):
-        service_ld["offers"] = {"@type": "Offer", "price": "1900", "priceCurrency": "TRY", "url": f"{BASE}{pkg_url(p)}"}
+        service_ld["offers"] = {"@type": "Offer", "price": "1500", "priceCurrency": "TRY", "url": f"{BASE}{pkg_url(p)}"}
     return build(pkg_url(p), title, desc, crumbs, main, extra_ld=[service_ld])
 
 def catalog_page():
@@ -98,7 +98,7 @@ def catalog_page():
     first = PACKAGES[0]
     featured = (f'<section class="container pkg-feature"><div class="pkg-feature-copy"><p class="eyebrow">01 · BURADAN BAŞLAYIN</p><h2>İlk Adım</h2>'
                 f'<p>{esc(first["lead"])}</p><ul class="pkg-checks">' + ''.join(f'<li>{esc(d)}</li>' for d in first['deliverables']) + '</ul></div>'
-                f'<div class="pkg-feature-price"><span class="pkg-feature-amount">1.900 TL</span><span>KDV dahil, sabit ücret</span>'
+                f'<div class="pkg-feature-price"><span class="pkg-feature-amount">1.500 TL</span><span>KDV dahil, sabit ücret</span>'
                 f'<a class="button button-light" href="/paketler/ilk-adim/">İlk Adım’ı inceleyin {ARROW}</a>'
                 f'<a class="text-link" href="/iletisim/?paket=01">Hemen başvurun {ARROW}</a></div></section>')
     groups = []
@@ -123,7 +123,7 @@ def catalog_page():
     item_list = {"@type": "ItemList", "name": "ENDLESS.CO hizmet paketleri", "itemListElement": [
         {"@type": "ListItem", "position": i + 1, "url": f"{BASE}/paketler/{p['slug']}/", "name": p['name']} for i, p in enumerate(PACKAGES)]}
     return build('/paketler/', 'Hizmet Paketleri: Proje, Eğitim ve Araştırma | ENDLESS.CO',
-                 'Dokuz hizmet paketi: İlk Adım (1.900 TL, KDV dahil), proje tasarımı, kurumsal eğitim, deneyimsel öğrenme, araştırma, değerlendirme ve akademik destek.',
+                 'Dokuz hizmet paketi: İlk Adım (1.500 TL, KDV dahil), proje tasarımı, kurumsal eğitim, deneyimsel öğrenme, araştırma, değerlendirme ve akademik destek.',
                  crumbs, main, extra_ld=[item_list])
 
 if __name__ == '__main__':

@@ -27,7 +27,7 @@ def build(path, title, desc, crumbs, main_html, extra_ld=None, og_image=f'{BASE}
         {"@type": "Organization", "@id": f"{BASE}/#organization", "name": "ENDLESS.CO", "url": f"{BASE}/",
          "logo": {"@type": "ImageObject", "url": f"{BASE}/assets/endless-logo-v2.png", "width": 1942, "height": 809},
          "email": "endlesscotr@gmail.com",
-         "address": {"@type": "PostalAddress", "addressLocality": "Çankaya", "addressRegion": "Ankara", "addressCountry": "TR"}},
+         "address": {"@type": "PostalAddress", "streetAddress": "Kızılırmak Mahallesi, 1450. Sokak No: 16", "addressLocality": "Çankaya", "addressRegion": "Ankara", "addressCountry": "TR"}},
         {"@type": "WebSite", "@id": f"{BASE}/#website", "url": f"{BASE}/", "name": "ENDLESS.CO", "inLanguage": "tr-TR",
          "publisher": {"@id": f"{BASE}/#organization"}},
         {"@type": "BreadcrumbList", "@id": f"{url}#breadcrumb", "itemListElement": [

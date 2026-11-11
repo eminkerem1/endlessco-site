@@ -38,7 +38,7 @@ SIKAYET = ('<p>Başvurunuz reddedilirse, verilen cevabı yetersiz bulursanız ve
 AYD_SECTIONS = [
     ('veri-sorumlusu', 'Veri sorumlusu', 'Veri sorumlusu',
      '<p>Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu’nun (“KVKK”) 10. maddesi ve Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ uyarınca hazırlanmıştır.</p>'
-     f'<p>ENDLESS.CO markasıyla yürütülen faaliyetlerde veri sorumlusu, işletme sahibi <strong>Aleyna ERKADAM</strong>’dır. İletişim: {MAIL} · Çankaya, Ankara.</p>'),
+     f'<p>ENDLESS.CO markasıyla yürütülen faaliyetlerde veri sorumlusu, işletme sahibi <strong>Aleyna ERKADAM</strong>’dır. Adres: Kızılırmak Mahallesi, 1450. Sokak No: 16, Çankaya/Ankara · E-posta: {MAIL}</p>'),
     ('kapsam', 'Bu metnin kapsamı', 'Kapsam',
      '<p>Bu metin; internet sitemizi ziyaret etmeniz, iletişim formunu kullanmanız, bize e-posta göndermeniz ve uzman iş ortaklığı başvurusunda bulunmanız sırasında işlenen kişisel verileri kapsar.</p>'
      '<p>Bir hizmet sözleşmesi kurduğumuzda veya bir araştırma ya da eğitim programı yürüttüğümüzde, o süreçte işlenecek veriler için ayrıca bilgilendirme yaparız.</p>'),
@@ -140,7 +140,8 @@ def update_basvuru():
         sik = sec('kurula-sikayet', 'Kişisel Verileri Koruma Kurulu’na şikâyet', SIKAYET)
         h = h.replace('<details class="legal-sources">', sik + '<details class="legal-sources">', 1)
         h = re.sub(r'(<nav aria-label="Sayfa içeriği">.*?)(</nav>)', r'\1<a href="#kurula-sikayet">Kurula şikâyet</a>\2', h, count=1, flags=re.S)
-    h = h.replace('Elektronik başvuru ve iletişim adresi: endlesscotr@gmail.com.', 'Elektronik başvuru ve iletişim adresi: endlesscotr@gmail.com.', 1)
+    h = h.replace('Yazılı başvuru için güncel yazışma adresini endlesscotr@gmail.com üzerinden öğrenebilirsiniz.', 'Yazılı başvurunuzu Kızılırmak Mahallesi, 1450. Sokak No: 16, Çankaya/Ankara adresine gönderebilirsiniz.', 1)
+    h = h.replace('Elektronik başvuru ve iletişim adresi: endlesscotr@gmail.com.', 'Yazışma adresi: Kızılırmak Mahallesi, 1450. Sokak No: 16, Çankaya/Ankara. Elektronik başvuru ve iletişim adresi: endlesscotr@gmail.com.', 1)
     open(fp, 'w', encoding='utf-8').write(h)
 
 

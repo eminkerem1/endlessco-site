@@ -1107,3 +1107,4 @@ nav.is-open{display:flex}nav>a{padding:13px 0}nav .nav-cta{padding:13px 15px;mar
 @media(max-width:900px){.en-contact{grid-template-columns:1fr}}
 @media(max-width:1050px){.nav-lang{align-self:flex-start;margin-top:8px}}
 .page-heading + .pkg-groups .pkg-group:first-child{border-top:0}
+@media(max-width:700px){.home-packages .pkg-grid .pkg-card:nth-child(n+5){display:none}}
