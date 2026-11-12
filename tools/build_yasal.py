@@ -145,10 +145,73 @@ def update_basvuru():
     open(fp, 'w', encoding='utf-8').write(h)
 
 
+# ---------------------------------------------------------------- kullanım koşulları
+KK_SECTIONS = [
+    ('kapsam', 'Kapsam', 'Kapsam',
+     '<p>Bu koşullar, Aleyna ERKADAM’a ait şahıs işletmesi tarafından ENDLESS.CO markasıyla işletilen internet sitesinin kullanımına ilişkindir. Siteyi kullanarak bu koşulları kabul etmiş sayılırsınız.</p>'),
+    ('icerik', 'Sitedeki bilgilerin niteliği', 'Bilgilerin niteliği',
+     '<p>Sitedeki hizmet açıklamaları ve Bilgi Merkezi yazıları genel bilgilendirme amaçlıdır; kurumunuza özel profesyonel danışmanlığın yerine geçmez.</p>'
+     '<p>Destek programlarının koşulları, takvimleri ve bütçeleri ilgili kurumlar tarafından değiştirilebilir. Başvuru öncesinde her zaman programın resmî sayfası ve güncel rehberi esas alınmalıdır.</p>'),
+    ('paketler', 'Hizmet paketleri, fiyatlar ve teklifler', 'Paketler ve fiyatlar',
+     '<p>Hizmet paketlerinin kapsam, süre ve teslim açıklamaları tanıtım amaçlıdır. Bir hizmetin kapsamı, süresi ve ücreti, taraflar arasında yazılı olarak onaylanan teklif veya sözleşmeyle kesinleşir.</p>'
+     '<p>İlk Adım paketinin sitede belirtilen ücreti KDV dahildir. Fiyatlar önceden duyurularak değiştirilebilir; değişiklik, daha önce yazılı olarak onaylanmış teklifleri etkilemez.</p>'
+     '<p>Destek programlarına yapılan başvuruların sonucu ilgili kurumların değerlendirmesine bağlıdır. ENDLESS.CO, bir başvurunun kabul edileceğini veya belirli bir destek tutarının alınacağını garanti etmez.</p>'),
+    ('fikri-mulkiyet', 'Fikrî mülkiyet', 'Fikrî mülkiyet',
+     '<p>Sitedeki metinler, görseller, logo ve tasarım ENDLESS.CO’ya aittir veya izinle kullanılmaktadır. Kaynak gösterilerek ve bağlantı verilerek kısa alıntı yapılabilir. İçeriğin tamamının veya önemli bir bölümünün çoğaltılması, ticari amaçla kullanılması veya değiştirilerek yayımlanması için yazılı izin gerekir.</p>'),
+    ('dis-baglantilar', 'Dış bağlantılar', 'Dış bağlantılar',
+     '<p>Site, kamu kurumları ve diğer kuruluşların sayfalarına bağlantılar içerir. Bu sayfaların içeriği, güncelliği ve gizlilik uygulamaları ilgili kuruluşların sorumluluğundadır.</p>'),
+    ('sorumluluk', 'Sorumluluğun sınırı', 'Sorumluluğun sınırı',
+     '<p>Sitedeki bilgiler özenle hazırlanır ve düzenli olarak gözden geçirilir; ancak her bilginin her an eksiksiz ve güncel olduğu garanti edilemez. Sitenin kesintisiz veya hatasız çalışacağı taahhüt edilmez. Sitedeki bilgilere dayanılarak verilen kararlardan doğabilecek zararlardan, kanunen sınırlandırılamayan haller saklı kalmak üzere, sorumluluk kabul edilmez.</p>'),
+    ('kisisel-veriler', 'Kişisel veriler', 'Kişisel veriler',
+     '<p>İletişim formu veya e-posta yoluyla paylaştığınız kişisel verilerin nasıl işlendiği <a href="/kvkk-aydinlatma-metni/">KVKK Aydınlatma Metni</a>’nde açıklanmıştır. Site çerez kullanmaz; ayrıntılar <a href="/cerez-politikasi/">Çerez Politikası</a>’ndadır.</p>'),
+    ('degisiklik', 'Değişiklikler ve uygulanacak hukuk', 'Değişiklikler ve hukuk',
+     '<p>Bu koşullar güncellenebilir; güncel metin bu sayfada yayımlandığı tarihte yürürlüğe girer.</p>'
+     '<p>Bu koşullara Türk hukuku uygulanır. Uyuşmazlıklarda Ankara mahkemeleri ve icra daireleri yetkilidir; tüketici işlemlerinde tüketici mevzuatındaki görev ve yetki kuralları saklıdır.</p>'),
+    ('iletisim', 'İletişim', 'İletişim',
+     f'<p>Bu koşullarla ilgili sorularınız için {MAIL} adresine yazabilirsiniz. Yazışma adresi: Kızılırmak Mahallesi, 1450. Sokak No: 16, Çankaya/Ankara.</p>'),
+]
+KK_DESC = 'ENDLESS.CO sitesinin kullanım koşulları: bilgilerin niteliği, paketler ve fiyatlar, fikrî mülkiyet, dış bağlantılar ve uygulanacak hukuk.'
+
+
+def build_kullanim():
+    src = open(os.path.join(ROOT, 'cerez-politikasi/index.html'), encoding='utf-8').read()
+    h = src.replace('/cerez-politikasi/', '/kullanim-kosullari/')
+    h = h.replace('Çerez Politikası | ENDLESS.CO', 'Kullanım Koşulları | ENDLESS.CO')
+    h = h.replace('"name": "Çerez Politikası", "item"', '"name": "Kullanım Koşulları", "item"')
+    h = h.replace('<span aria-current="page">Çerez Politikası</span>', '<span aria-current="page">Kullanım Koşulları</span>')
+    h = h.replace('<h1>Çerez Politikası</h1>', '<h1>Kullanım Koşulları</h1>')
+    h = re.sub(r'(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*', lambda m: m.group(1) + KK_DESC, h)
+    h = re.sub(r'("description": ")[^"]*', lambda m: m.group(1) + KK_DESC, h)
+    h = h.replace('<span>Veri sorumlusu: Aleyna ERKADAM</span>', '<span>İşletme sahibi: Aleyna ERKADAM</span>')
+    # yasal menüde aktif bağlantı ve dış kaynak bloğu
+    h = re.sub(r'<details class="legal-sources">.*?</details>', '', h, flags=re.S)
+    os.makedirs(os.path.join(ROOT, 'kullanim-kosullari'), exist_ok=True)
+    open(os.path.join(ROOT, 'kullanim-kosullari/index.html'), 'w', encoding='utf-8').write(h)
+    rewrite('kullanim-kosullari/index.html', KK_SECTIONS, '',
+            'Sitemizi kullanırken geçerli olan koşulları sade bir dille açıklıyoruz.')
+    fp = os.path.join(ROOT, 'kullanim-kosullari/index.html')
+    h = open(fp, encoding='utf-8').read()
+    h = re.sub(r'<span>Son güncelleme: [^<]*</span>', '<span>Son güncelleme: 12 Kasım 2026</span>', h)
+    open(fp, 'w', encoding='utf-8').write(h)
+
+
+CEREZ_DESC = 'ENDLESS.CO sitesi çerez ve takip aracı kullanmaz. Siteyi ziyaret ettiğinizde oluşan teknik kayıtları ve dış bağlantıları açıklıyoruz.'
+
+
+def fix_cerez_meta():
+    fp = os.path.join(ROOT, 'cerez-politikasi/index.html')
+    h = open(fp, encoding='utf-8').read()
+    h = re.sub(r'(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*', lambda m: m.group(1) + CEREZ_DESC, h)
+    h = re.sub(r'("description": ")[^"]*', lambda m: m.group(1) + CEREZ_DESC, h)
+    open(fp, 'w', encoding='utf-8').write(h)
+
+
 if __name__ == '__main__':
     rewrite('kvkk-aydinlatma-metni/index.html', AYD_SECTIONS, AYD_SOURCES,
             'İnternet sitemizi ziyaret ettiğinizde, iletişim formunu kullandığınızda veya bize e-posta gönderdiğinizde kişisel verilerinizin nasıl işlendiğini açıklıyoruz.')
     rewrite('cerez-politikasi/index.html', CEREZ_SECTIONS, CEREZ_SOURCES,
             'Sitemiz çerez kullanmaz. Bu sayfada, siteyi ziyaret ettiğinizde hangi teknik kayıtların oluştuğunu ve dış bağlantıların nasıl çalıştığını açıklıyoruz.')
     update_basvuru()
+    fix_cerez_meta()
+    build_kullanim()
     print('legal pages updated')

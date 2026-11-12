@@ -25,7 +25,7 @@ AREA_PAGES = {
             ("Program kurallarına uyum", "Dış hizmet alımına ilişkin program kuralları neye izin veriyorsa o sınırlar içinde çalışırız; resmî yükümlülükler kurumunuzda kalır."),
         ],
         "who": ["Dernekler ve STK'lar", "Spor kulüpleri ve federasyonlar", "Üniversiteler ve öğrenci toplulukları", "Okullar ve eğitim kurumları", "Kamu kurumları ve yerel yönetimler", "İşletmeler"],
-        "meta": "Destek programlarını değerlendirme, proje kurgusu, ortaklık planlaması ve uygulama yönetimi. Erasmus+, ESC, kalkınma ajansı ve ulusal programlarda proje danışmanlığı.",
+        "meta": "Destek programı seçimi, proje kurgusu, ortaklık planlaması ve uygulama yönetimi: Erasmus+, ESC, kalkınma ajansı ve ulusal programlarda danışmanlık.",
     },
     "egitim": {
         "file": "hizmetler/egitim-programlari/index.html",
@@ -69,7 +69,7 @@ AREA_PAGES = {
             ("Güvenlik ve kapsayıcılık", "Yüksek riskli faaliyetlere yer vermez, programı katılımcıların özelliklerine ve uygulama ortamına göre uyarlarız."),
         ],
         "who": ["Şirketler ve ekipleri", "Üniversiteler", "Kamu kurumları", "STK'lar ve gençlik kuruluşları", "Spor kulüpleri", "Eğitimciler ve antrenörler"],
-        "meta": "Deneyimsel öğrenme ve macera eğitimi: takım gelişimi, liderlik, iletişim, iş simülasyonları ve açık hava programları. Öğrenme hedefli, güvenli ve kapsayıcı uygulamalar.",
+        "meta": "Takım gelişimi, liderlik, iletişim, iş simülasyonları ve açık hava programları: öğrenme hedefli, güvenli ve kapsayıcı deneyimsel eğitim.",
     },
     "kurumsal": {
         "file": "hizmetler/kurumsal-danismanlik/index.html",

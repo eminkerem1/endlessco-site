@@ -31,6 +31,17 @@ for f in ROOT.rglob('*.html'):
             return (f'{mm.group(1)}<div class="container"><div class="kv-cta">{slogan(lang)}'
                     f'<div class="kv-cta-copy">{mm.group(2)}{mm.group(3)}</div></div></div></section>')
         s, k = CTA.subn(rep, s); n_cta += k
+    # sekme simgeleri
+    if 'apple-touch-icon' not in s and '</head>' in s:
+        icons = '<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">'
+        if 'rel="icon"' not in s:
+            icons = '<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png">' + icons
+        s = s.replace('</head>', icons + '</head>', 1)
+    # alt bilgide kullanım koşulları bağlantısı
+    kk = ('Terms of use', '/kullanim-kosullari/') if lang == 'en' else ('Kullanım Koşulları', '/kullanim-kosullari/')
+    lab = 'aria-label="Legal">' if lang == 'en' else 'aria-label="Yasal bilgiler">'
+    if lab in s and '/kullanim-kosullari/"' not in s.split(lab, 1)[1][:600]:
+        s = re.sub(r'(<nav ' + re.escape(lab) + r'.*?)(</nav>)', lambda mm: mm.group(1) + f'<a href="{kk[1]}">{kk[0]}</a>' + mm.group(2), s, count=1, flags=re.S)
     if s != o:
         f.write_text(s)
 print(f'body: {n_body}, cta: {n_cta}')
