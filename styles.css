@@ -1264,3 +1264,5 @@ body.kv.blog-post-page .page-heading,body.kv.legal-document .page-heading{border
 @media(max-width:900px){
   body.kv:not(.legal-document):not(.blog-post-page):not(:has(.contact-section)) .page-heading{padding:34px 24px 40px;border-radius:22px;width:calc(100% - 28px);margin-top:14px}
 }
+
+body.kv .contact-section .eyebrow{color:var(--sky)}
