@@ -175,15 +175,32 @@ if (form) {
       _captcha: 'false'
     };
     submitButton.disabled = true;
-    status.textContent = 'Talebiniz gönderiliyor…';
+    status.textContent = 'Talebiniz gönderiliyor… Bu işlem bir dakika kadar sürebilir, lütfen sayfayı kapatmayın.';
+    const send = async () => {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 90000);
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/endlesscotr@gmail.com', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+          body: JSON.stringify(payload),
+          signal: ctrl.signal
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || String(result.success) === 'false') throw new Error(result.message || 'send-failed');
+      } finally {
+        clearTimeout(timer);
+      }
+    };
     try {
-      const response = await fetch('https://formsubmit.co/ajax/endlesscotr@gmail.com', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-        body: JSON.stringify(payload)
-      });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok || String(result.success) === 'false') throw new Error(result.message || 'send-failed');
+      try {
+        await send();
+      } catch (first) {
+        if (first.name === 'AbortError') throw first;
+        status.textContent = 'Bağlantı yavaş; talebinizi yeniden göndermeyi deniyoruz…';
+        await new Promise(r => setTimeout(r, 3000));
+        await send();
+      }
       form.reset();
       form.classList.add('is-sent');
       form.innerHTML = '<h2>Talebiniz bize ulaştı.</h2><p>Teşekkür ederiz, ' + name.replace(/[<>&"]/g, '') + '. Talebinizi değerlendirip yazdığınız e-posta adresine dönüş yapacağız.</p><p class="form-note">Acil bir konu için <a href="mailto:endlesscotr@gmail.com">endlesscotr@gmail.com</a> adresine de yazabilirsiniz.</p><a class="button button-dark" href="/paketler/">Hizmet paketlerini inceleyin <span aria-hidden="true">↗</span></a>';
