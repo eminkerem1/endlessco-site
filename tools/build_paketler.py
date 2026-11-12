@@ -1,11 +1,15 @@
 """Hizmet paketleri sayfalarını üretir: /paketler/ ve /paketler/<paket>/.
 
+
 Kullanım: python3 tools/build_paketler.py
 İçerik tools/paketler_data.py dosyasındadır; üst ve alt bölüm kurumsal/index.html sayfasından alınır.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from shell import build, write, esc, breadcrumbs_html, BASE
+def tr_up(t):
+    return t.replace('i', 'İ').replace('ı', 'I').upper()
+
 from paketler_data import PACKAGES, AREAS
 
 ARROW = '<span aria-hidden="true">↗</span>'
@@ -37,7 +41,7 @@ def package_page(p, prev_p, next_p):
         acc.append(f'<details id="icerik-{i+1}" class="service-detail"{" open" if i == 0 else ""}><summary><span>{esc(t)}</span>'
                    f'<span class="detail-plus" aria-hidden="true">+</span></summary><div class="detail-copy"><p>{esc(txt)}</p></div></details>')
     deliv = ''.join(f'<li>{esc(d)}</li>' for d in p['deliverables'])
-    sidebar = (f'<aside class="service-sidebar pkg-sidebar"><p class="sidebar-caption">{p["no"]} · {esc(p["name"]).upper()}</p>'
+    sidebar = (f'<aside class="service-sidebar pkg-sidebar"><p class="sidebar-caption">{p["no"]} · {tr_up(esc(p["name"]))}</p>'
                f'<div class="pkg-sidebar-price">{price_badge(p)}</div>'
                f'<div class="service-deliverables"><h3>Teslim aldıklarınız</h3><ul>{deliv}</ul></div>'
                f'<a class="button button-dark service-cta" href="{contact_url(p)}">{esc(p.get("cta", "Teklif isteyin"))} {ARROW}</a>'
@@ -72,7 +76,7 @@ def package_page(p, prev_p, next_p):
            f'<a href="/paketler/"><small>Tüm paketler</small><strong>9 hizmet paketi</strong></a>'
            f'<a href="{pkg_url(next_p)}"><small>Sonraki paket →</small><strong>{next_p["no"]} · {esc(next_p["name"])}</strong></a></div>')
     main = (f'<main id="main"><section class="page-heading container illustrated-heading"><div class="illustrated-heading-copy">{breadcrumbs_html(crumbs)}'
-            f'<p class="eyebrow">{p["no"]} · {esc(area["name"]).upper()}</p><h1>{esc(p["name"])}</h1>'
+            f'<p class="eyebrow">{p["no"]} · {tr_up(esc(area["name"]))}</p><h1>{esc(p["name"])}</h1>'
             f'<p class="pkg-subtitle">{esc(p["title"])}</p><p class="page-lead">{esc(p["lead"])}</p>'
             f'<div class="hero-actions">{price_badge(p)}<a class="button button-dark" href="{contact_url(p)}">{esc(p.get("cta", "Teklif isteyin"))} {ARROW}</a></div></div>'
             f'<figure class="service-heading-art"><img src="{area["art"]}" alt="{esc(area["art_alt"])}" width="800" height="540"></figure></section>'
@@ -81,7 +85,7 @@ def package_page(p, prev_p, next_p):
             f'<section class="service-approach"><div class="container"><div class="section-heading-row"><div><p class="eyebrow">NASIL ÇALIŞIYORUZ?</p><h2>{esc(p.get("steps_title", "Çalışma süreci"))}</h2></div>'
             f'<p>Kapsamı, takvimi ve teslim edilecekleri çalışma başlamadan önce yazılı olarak netleştiriyoruz.</p></div><ol class="{steps_cls}">{steps}</ol></div></section>'
             f'<section class="section container"><div class="section-intro"><p class="eyebrow">KAPSAM VE KOŞULLAR</p><h2>Açık sınırlar, net teslimler.</h2></div><div class="pkg-bounds">{"".join(bound)}</div>{nav}</section>'
-            f'<section id="iletisim" class="closing-cta"><div class="container"><div><p class="eyebrow">{p["no"]} · {esc(p["name"]).upper()}</p>'
+            f'<section id="iletisim" class="closing-cta"><div class="container"><div><p class="eyebrow">{p["no"]} · {tr_up(esc(p["name"]))}</p>'
             f'<h2>{"Fikrinizi birkaç cümleyle anlatın." if p.get("price") else "İhtiyacınızı anlatın, teklifimizi hazırlayalım."}</h2>'
             f'<p>{"Kurumunuzu ve proje fikrinizi yazın; uygunluğu değerlendirip size dönelim." if p.get("price") else "Kurumunuzu, ihtiyacınızı ve varsa düşündüğünüz tarihleri yazın; kapsamı birlikte netleştirip yazılı teklif hazırlayalım."}</p></div>'
             f'<a class="button button-light" href="{contact_url(p)}">{esc(p.get("cta", "Teklif isteyin"))} {ARROW}</a></div></section></main>')

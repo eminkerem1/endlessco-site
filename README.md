@@ -18,3 +18,9 @@ Canlıya geçişte bu değişiklikler geri alınır; ilk commit (`ca336b2`) site
 ## Paket sayfaları
 
 `/paketler/` ve dokuz paket sayfası `tools/build_paketler.py` ile üretilir. Paket metinleri `tools/paketler_data.py` dosyasındadır; metni orada değiştirip `python3 tools/build_paketler.py` çalıştırmak yeterlidir. Menü ve alt bilgi `kurumsal/index.html` sayfasından kopyalanır.
+
+## Sayfaları yeniden üretme ve tema
+
+Sıra: `python3 tools/build_paketler.py && python3 tools/build_hizmetler.py && python3 tools/build_en.py && python3 tools/build_yasal.py && python3 tools/apply_theme.py`
+
+`apply_theme.py` her sayfanın `<body>` etiketine `kv` sınıfını ekler ve kapanış bandını slogan karolu düzene çevirir. Tema CSS'i `styles.css` sonundaki "ENDLESS.CO tema 2026-11" bölümündedir (koyu degrade başlık paneli, mono etiketler; mono yazı tipi `assets/fonts/`). Eski görünüme dönmek için bu bölümü silmek yeterlidir.
