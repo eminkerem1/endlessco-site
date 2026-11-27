@@ -3,7 +3,7 @@
 // Keep bookmarked paths and campaign parameters when visitors use a second domain.
 // TEST ORTAMI: endlessco.com.tr bu kopyanın test adresi olduğu için yönlendirmeden çıkarıldı.
 // Canlıya alınırken listeye geri eklenebilir: 'endlessco.com.tr', 'www.endlessco.com.tr'
-const aliasHosts = ['www.endlessco.tr'];
+const aliasHosts = ['www.endlessco.tr', 'endlessco.com.tr', 'www.endlessco.com.tr'];
 if (aliasHosts.includes(window.location.hostname)) {
   const destination = new URL(window.location.href);
   destination.protocol = 'https:';
