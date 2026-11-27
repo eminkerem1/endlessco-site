@@ -79,7 +79,7 @@ def package_page(p, prev_p, next_p):
             f'<p class="eyebrow">{p["no"]} · {tr_up(esc(area["name"]))}</p><h1>{esc(p["name"])}</h1>'
             f'<p class="pkg-subtitle">{esc(p["title"])}</p><p class="page-lead">{esc(p["lead"])}</p>'
             f'<div class="hero-actions">{price_badge(p)}<a class="button button-dark" href="{contact_url(p)}">{esc(p.get("cta", "Teklif isteyin"))} {ARROW}</a></div></div>'
-            f'<figure class="service-heading-art"><img src="{area["art"]}" alt="{esc(area["art_alt"])}" width="800" height="540"></figure></section>'
+            f'<figure class="service-heading-art"><img src="{area["art"]}" alt="{esc(area["art_alt"])}" width="1200" height="900"></figure></section>'
             f'<section class="section container service-detail-page"><div class="service-audience"><span>Kimler için?</span><p>{esc(p["audience"])}</p></div>'
             f'<div class="service-layout"><div class="service-detail-list"><h2>Hizmetin içeriği</h2>{"".join(acc)}{extra_html}</div>{sidebar}</div></section>'
             f'<section class="service-approach"><div class="container"><div class="section-heading-row"><div><p class="eyebrow">NASIL ÇALIŞIYORUZ?</p><h2>{esc(p.get("steps_title", "Çalışma süreci"))}</h2></div>'

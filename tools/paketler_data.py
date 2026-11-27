@@ -3,15 +3,15 @@
 # maliyet kalemleri) yayımlanmaz; müşteriye dönük kapsam, teslimler ve sınırlar sadeleştirilerek verilir.
 
 AREAS = {
-    "proje": {"name": "Proje Geliştirme ve Yönetimi", "url": "/hizmetler/proje-gelistirme/", "art": "/assets/visuals/proje-plani.svg",
+    "proje": {"name": "Proje Geliştirme ve Yönetimi", "url": "/hizmetler/proje-gelistirme/", "art": "/assets/visuals/proje-plani.webp",
               "art_alt": "Proje planı, takvim ve görev kartlarını gösteren illüstrasyon.", "short": "Proje"},
-    "egitim": {"name": "Eğitim Programları", "url": "/hizmetler/egitim-programlari/", "art": "/assets/visuals/egitim-tasarimi.svg",
+    "egitim": {"name": "Eğitim Programları", "url": "/hizmetler/egitim-programlari/", "art": "/assets/visuals/egitim-tasarimi.webp",
                "art_alt": "Eğitim oturumlarının planlandığı çalışma panosunu gösteren illüstrasyon.", "short": "Eğitim"},
-    "deneyimsel": {"name": "Deneyimsel Öğrenme", "url": "/hizmetler/deneyimsel-ogrenme/", "art": "/assets/visuals/deneyim-atolyesi.svg",
+    "deneyimsel": {"name": "Deneyimsel Öğrenme", "url": "/hizmetler/deneyimsel-ogrenme/", "art": "/assets/visuals/deneyim-atolyesi.webp",
                    "art_alt": "Ortak bir görev üzerinde çalışan katılımcıları gösteren atölye illüstrasyonu.", "short": "Deneyimsel öğrenme"},
-    "kurumsal": {"name": "Kurumsal Araştırma ve Danışmanlık", "url": "/hizmetler/kurumsal-danismanlik/", "art": "/assets/visuals/kurumsal-arastirma.svg",
+    "kurumsal": {"name": "Kurumsal Araştırma ve Danışmanlık", "url": "/hizmetler/kurumsal-danismanlik/", "art": "/assets/visuals/kurumsal-arastirma.webp",
                  "art_alt": "Anket, görüşme ve rapor belgelerini gösteren araştırma illüstrasyonu.", "short": "Araştırma"},
-    "akademik": {"name": "Akademik Danışmanlık", "url": "/hizmetler/akademik-danismanlik/", "art": "/assets/visuals/akademik-yontem.svg",
+    "akademik": {"name": "Akademik Danışmanlık", "url": "/hizmetler/akademik-danismanlik/", "art": "/assets/visuals/akademik-yontem.webp",
                  "art_alt": "Araştırma sorusundan yönteme ve analize uzanan ilişkiyi gösteren illüstrasyon.", "short": "Akademik"},
 }
 
